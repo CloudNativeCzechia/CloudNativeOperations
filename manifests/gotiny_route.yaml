@@ -1,0 +1,19 @@
+﻿kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: gotiny
+  namespace: default
+  labels:
+    app: gotiny
+    use: proxy
+  annotations:
+    openshift.io/host.generated: 'true'
+spec:
+  subdomain: ''
+  to:
+    kind: Service
+    name: gotiny-proxy
+    weight: 100
+  port:
+    targetPort: 8080
+  wildcardPolicy: None
