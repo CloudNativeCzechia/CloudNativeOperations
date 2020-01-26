@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gotiny-deployment
+  labels:
+    app: gotiny
+    use: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gotiny
+      use: app
+  template:
+    metadata:
+      labels:
+        app: gotiny
+        use: app
+    spec:
+      containers:
+        - name: gotiny
+          image: docker.io/pkotas/gotiny-app:master
+          env:
+            - name: TINY_PORT
+              value: "8888"
+            - name: JAEGER_AGENT_HOST
+              value: "jaeger-all-in-one-inmemory-agent"
+            - name: JAEGER_AGENT_PORT
+              value: "6831"
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 80
