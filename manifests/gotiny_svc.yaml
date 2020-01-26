@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: gotiny-app
+  labels:
+    app: gotiny
+    use: app
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/port: '8888'
+spec:
+  ports:
+  - port: 8888
+    targetPort: 8888
+  selector:
+    app: gotiny
+    use: app
