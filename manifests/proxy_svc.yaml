@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: gotiny-proxy
+  labels:
+    app: gotiny
+    use: proxy
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/port: '8080'
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8080
+    targetPort: 8080
+  selector:
+    app: gotiny
+    use: proxy
